@@ -15,12 +15,16 @@ class Iterator:
         return self
 
     def __next__(self):
-        if self.pointer > self.stop:
-            raise StepValueError('когда pointer станет больше stop')
-        if self.pointer < self.stop:
-            raise StepValueError('либо когда pointer станет меньше stop')
+        current = self.pointer
+        if current > self.stop and self.step > 0 or current < self.stop and self.step < 0:
+            raise StopIteration()
+
+        # if current > self.stop and self.step > 0:
+        #     raise StopIteration()
+        # if current < self.stop and self.step < 0:
+        #     raise StopIteration()
         self.pointer += self.step
-        return self.pointer
+        return current
 
 try:
     iter1 = Iterator(100, 200, 0)
@@ -37,14 +41,14 @@ iter5 = Iterator(10, 1)
 
 for i in iter2:
     print(i, end=' ')
-    print()
+print()
 for i in iter3:
     print(i, end=' ')
-    print()
+print()
 for i in iter4:
     print(i, end=' ')
-    print()
+print()
 for i in iter5:
     print(i, end=' ')
-    print()
+print()
 
